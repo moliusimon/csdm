@@ -1,5 +1,5 @@
 from sdm import CascadeSdm
-from ..toolkit.pca import variation_modes
+from toolkit.pca import variation_modes
 import numpy as np
 
 

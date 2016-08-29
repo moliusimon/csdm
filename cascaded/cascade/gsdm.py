@@ -1,9 +1,9 @@
 from sdm import CascadeSdm
-from ..toolkit.pca import variation_modes
+from toolkit.pca import variation_modes
 import numpy as np
 
 
-class CascadeGsdmRotate(CascadeSdm):
+class CascadeGsdm(CascadeSdm):
     def __init__(self, regressor='linear', descriptor='sift', nb_shape=2, nb_feats=1):
         CascadeSdm.__init__(self, regressor, descriptor)
         self.nb_shape = nb_shape
@@ -34,10 +34,6 @@ class CascadeGsdmRotate(CascadeSdm):
 
         # Prepare rotated targets
         targets = ground_truth[mapping, ...] - params
-        targets = self._encode_parameters(self._apply_rotations(
-            self._decode_parameters(targets),
-            rotations, center=False)
-        )
 
         # Find two principal components of shape deltas
         mean_dshape, pca_dshape, _ = variation_modes(targets, n_bases=nb_shape)
@@ -65,7 +61,7 @@ class CascadeGsdmRotate(CascadeSdm):
             'mean_dshape': mean_dshape,
             'pca_dshape': pca_dshape,
             'nb_feats': nb_feats,
-        }}, self._encode_parameters(self._apply_rotations(self._decode_parameters(tr_preds), -rotations, center=False))
+        }}, tr_preds
 
     def _align_step(self, images, params, mapping, i, features=None, args=None):
         descriptor = self.steps[i]['descriptor']
@@ -83,23 +79,15 @@ class CascadeGsdmRotate(CascadeSdm):
             args={'rotations': rotations}
         )[0].reshape((len(mapping), -1)) - descriptor['mean_features'][None, :], descriptor['pca_transform'])
 
-        # Rotate targets if present
-        deltas = None if descriptor['pca_dshape'].shape[1] <= 0 else self._apply_rotations(
-            args['target'][mapping, ...] - params, rotations, center=False
-        )
-
         # Get bases
         bases = np.dot(
-            deltas - descriptor['mean_dshape'], descriptor['pca_dshape']
+            (args['target'][mapping, ...] - params) - descriptor['mean_dshape'], descriptor['pca_dshape']
         ) if descriptor['pca_dshape'].shape[1] > 0 else np.zeros((features.shape[0], 0), dtype=np.float32)
         bases = np.concatenate((bases, features[:, :descriptor['nb_feats']]), axis=1)
 
         # Apply specific regressor to each instance
         reg_instances = np.sum((bases > 0) * (2 ** np.arange(bases.shape[1]))[None, ::-1], axis=1)
         for j in range(2 ** bases.shape[1]):
-            params[reg_instances == j, :] += self._encode_parameters(self._apply_rotations(
-                self._decode_parameters(self.steps[i]['regressors'][j].apply(features[reg_instances == j, :])),
-                -rotations[reg_instances == j], center=False
-            ))
+            params[reg_instances == j, :] += self.steps[i]['regressors'][j].apply(features[reg_instances == j, :])
 
         return params, bases

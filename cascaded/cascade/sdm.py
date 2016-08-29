@@ -1,6 +1,6 @@
 from cascade import Cascade
-from ..toolkit.procrustes import procrustes_generalized, procrustes
-from ..toolkit.pca import variation_modes
+from toolkit.procrustes import procrustes_generalized, procrustes
+from toolkit.pca import variation_modes
 import numpy as np
 import matplotlib.pyplot as plt
 
