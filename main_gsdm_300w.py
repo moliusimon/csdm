@@ -1,7 +1,7 @@
 from load_300w import load_300w
 from eval import evaluate_results
 from cascaded.toolkit.mirror import mirror_instances
-from cascaded.cascade.gsdm import CascadeGsdm as CascadeMethod
+from cascaded.cascade.gsdm_rotate import CascadeGsdmRotate as CascadeMethod
 import numpy as np
 import cPickle
 

@@ -1,7 +1,7 @@
 from load_bu4dfep import load_bu4dfep
 from eval import evaluate_results
 
-from cascaded.cascade.gsdm import CascadeGsdm as CascadeMethod
+from cascaded.cascade.gsdm_rotate import CascadeGsdmRotate as CascadeMethod
 from cascaded.toolkit.mirror import mirror_instances
 import numpy as np
 import cPickle
