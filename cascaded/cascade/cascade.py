@@ -1,10 +1,10 @@
-from regressor.linear import RegressorLinear as RegressorLinear
-from regressor.gausslinear import RegressorGausslinear as RegressorGausslinear
-from regressor.metalinear import RegressorMetalinear as RegressorMetalinear
-from regressor.metalinear_fs import RegressorMetalinearFs as RegressorMetalinearFs
-from regressor.metalinear_fsen import RegressorMetalinearFsen as RegressorMetalinearFsen
-from descriptor.sift import DescriptorSift as DescriptorSift
-from descriptor.sift_rotate import DescriptorSiftRotate as DescriptorSiftRotate
+from ..regressor.linear import RegressorLinear as RegressorLinear
+from ..regressor.gausslinear import RegressorGausslinear as RegressorGausslinear
+from ..regressor.metalinear import RegressorMetalinear as RegressorMetalinear
+from ..regressor.metalinear_fs import RegressorMetalinearFs as RegressorMetalinearFs
+from ..regressor.metalinear_fsen import RegressorMetalinearFsen as RegressorMetalinearFsen
+from ..descriptor.sift import DescriptorSift as DescriptorSift
+from ..descriptor.sift_rotate import DescriptorSiftRotate as DescriptorSiftRotate
 
 import cPickle
 import numpy as np

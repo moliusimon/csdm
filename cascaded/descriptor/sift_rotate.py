@@ -4,6 +4,7 @@ import numpy as np
 from scipy.ndimage.interpolation import rotate
 from skimage.feature import hog
 
+
 class DescriptorSiftRotate(Descriptor):
     def __init__(self):
         Descriptor.__init__(self)
