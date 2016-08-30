@@ -2,7 +2,7 @@
 
 This is the source code used to perform the experiments on face alignment for the following paper, to be published on december 2016 to the Asian Conference in Computer Vision:
 
-Continuous Supervised Descent Method forFacial Landmark Localisation, M. Oliu, C. Corneanu, L. Jeni, T. Kanade, S. Escalera. ACCV 2016
+Continuous Supervised Descent Method forFacial Landmark Localisation, M. Oliu, C. Corneanu, L. Jeni, J. Cohn, T. Kanade, S. Escalera. ACCV 2016
 
 There you will find a complete description of the method and experimental results.
 
