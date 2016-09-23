@@ -1,12 +1,9 @@
-% Main reading script for BU4DFE
+function [] = read(path2data, path2save)
+    % Define reader class
+    bu4dfeReader = BU4DFEReader(path2data, path2save);
 
-path2data = '/Users/cipriancorneanu/Research/BU4DFE';
-path2save = '/Users/cipriancorneanu/Research/BU4DFE';
-
-% Define reader class
-bu4dfeReader = BU4DFEReader(path2data, path2save);
-
-% Read and save
-bu4dfeReader.Read();
+    % Read and save
+    bu4dfeReader.Read();
+end
 
 

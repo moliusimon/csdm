@@ -1,16 +1,11 @@
-function [] = augment_pers(idx)
+function [] = augment_pers(idx, path2data, path2save)
 
     %% Mean mesh sampling method. 
     warning off;
 
     % Data path
-    local_input_path = '/Users/cipriancorneanu/Research/data/bu4dfe/pers/color';
-    local_output_path = '/Users/cipriancorneanu/Research/data/bu4dfe/pers/color';
-    cluster_input_path = '/home/cvc/corneanu/data/bu4dfe/pers/color';
-    cluster_output_path = '/home/cvc/corneanu/bmvc/bu4dfe/test/color';
-
-    input_path = local_input_path;
-    output_path = local_output_path;
+    input_path = path2data;
+    output_path = path2save;
 
     start_batch = idx;
     stop_batch = idx;
@@ -52,7 +47,7 @@ function [] = augment_pers(idx)
                               procperson{i}.context.pose.roll], size(rots,1), 1);
                 d_rots = rots - source_rots;
                 
-                rotated = createRotatedPerson(procperson{i}, d_rots(r,1), d_rots(r,2), d_rots(r,3), bckg, 1);
+                rotated = createRotatedPerson(procperson{i}, d_rots(r,1), d_rots(r,2), d_rots(r,3), bckg, 0);
 
                 % Update rotation 
                 rotated.context.pose.roll = rots(r,3)*180/pi;        
@@ -67,7 +62,8 @@ function [] = augment_pers(idx)
                         rotated.landmarks(:,2), 500+rotated.landmarks(:,3), 'filled');
                                     
                 augperson(i,r) = rotated;
-                fprintf('->\t %.1f secs\n', toc);               
+                fprintf('->\t %.1f secs\n', toc);  
+                pause(1)
             end
         end
         % Save data

@@ -22,7 +22,7 @@ read(path2raw_data, path2proc_data);
 % TODO: Look for existing preprocessed files 
 n_pers = 99;
 for pers = 1:n_pers
-    fprintf('Generating data for person %d\n, %d remaining', pers, n_pers-pers); 
+    fprintf('-> Generating data for person %d, %d remaining\n', pers, n_pers-pers); 
     augment_pers(pers, path2proc_data, path2synt_data);
 end
 

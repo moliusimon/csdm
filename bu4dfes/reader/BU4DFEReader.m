@@ -82,7 +82,7 @@ classdef BU4DFEReader < DataReader
                             file_idx = file_idxs(i);
 
                             % Read data
-                            sample.rgb = imread(strcat(Path, filesep, rgb_files{file_idx}));                                    
+                            sample.rgb = rgb2gray(imread(strcat(Path, filesep, rgb_files{file_idx})));                                    
                             bnd = read_bnd(strcat(Path, filesep, lm_files{file_idx}));
                             depth = read_vrml(strcat(Path, filesep, depth_files{file_idx}));
                            

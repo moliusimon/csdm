@@ -57,16 +57,13 @@ function [ rotatedperson ] = createRotatedPerson( persondata, pitch, yaw, roll, 
     
     if showimg
         figure(1);
-        %trisurf(tri, finite_depth_ssmpl(:,1), finite_depth_ssmpl(:,2), finite_depth_ssmpl(:,3));
         trisurf(tri, depth(:,1), depth(:,2), depth(:,3)*2);
         shading interp;
-        faceted;
         figure(2);
-        %trisurf(tri, rot_fdepth(:,1), rot_fdepth(:,2), rot_fdepth(:,3));
         trisurf(tri, rot_depth(:,1), rot_depth(:,2), rot_depth(:,3));
     end
     
-    warped = zeros(h, w, 3, 'uint8');
+    warped = zeros(h, w, 'uint8');
     tic
     
     % Sort idx_list triangle indices depending on rotated triangle z index
@@ -124,8 +121,6 @@ function [ rotatedperson ] = createRotatedPerson( persondata, pitch, yaw, roll, 
                 
                 if (any(list))         
                     warped(ind_target(list)) = rgb(ind_source(list));
-                    warped(ind_target(list) + h*w) = rgb(ind_source(list) + h*w);
-                    warped(ind_target(list) + 2*h*w) = rgb(ind_source(list) + 2*h*w);
                 end    
                 
                 % Mark rendered
@@ -158,12 +153,10 @@ function [ rotatedperson ] = createRotatedPerson( persondata, pitch, yaw, roll, 
     [filled, rot_landmarks] = createSample(rotatedperson);
     mask = find(filled==0);
     filled(mask) = background(mask);
+    
     % Use a median filter for each channel
     filled(:,:,1) = medfilt2(filled(:,:,1),[2 2]);
-    filled(:,:,2) = medfilt2(filled(:,:,2),[2 2]);
-    filled(:,:,3) = medfilt2(filled(:,:,3),[2 2]);
     
-    figure(); imshow(uint8(filled));
     rotatedperson.rgb = uint8(filled);
     rotatedperson.landmarks = rot_landmarks;
     rotatedperson.context = persondata.context;
