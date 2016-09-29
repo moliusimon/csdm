@@ -17,4 +17,6 @@ path = '/home/cvc/moliu/Datasets/300w/'
 A modified version of BU4DFE, with artificial rotations for a wide range of pitch and yaw angles. The dataset is linked to the main scripts in the same way as 300-W. A script 
 is also provided to generate the BU4DFE-S dataset from BU4DFE. It is found under the bu4dfes folder.
 
-<b>TODO: Upload this dataset</b>
+Make sure to unzip bckgs.zip at a location of your choice. Call bu4dfes/main.m with the appropiate arguments.  path2raw_data should point to the BU4DFE dataset location, path2proc_data should point to the location where you want to save the processed data and path2synt_data should point to the location where the new syntesized dataset will be generated. The function will first read the data from BU4DFE and then will synthesize new data from it. Synthesizing the data may take a long time and parallel execution on multiple CPUs is highly recomended. 
+
+<b>TODO: Upload bckgs.zip</b>
